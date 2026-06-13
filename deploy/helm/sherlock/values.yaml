@@ -7,18 +7,21 @@ image:
 
 replicaCount: 1
 
-# LLM configuration. Set provider to "fake" to run fully offline (no key).
+# LLM configuration. provider: auto | groq | anthropic | fake.
+# auto picks Groq if GROQ_API_KEY is set, else Anthropic, else the offline engine.
 llm:
-  provider: anthropic        # anthropic | fake
-  model: claude-opus-4-8
+  provider: auto
+  groqModel: llama-3.3-70b-versatile
+  anthropicModel: claude-opus-4-8
 
 # Bring your own secrets. Create a Secret named `sherlock-secrets` with keys:
-#   ANTHROPIC_API_KEY, SHERLOCK_SLACK_WEBHOOK_URL, SHERLOCK_GIT_TOKEN
+#   GROQ_API_KEY, ANTHROPIC_API_KEY, SHERLOCK_SLACK_WEBHOOK_URL, SHERLOCK_GIT_TOKEN
 # or let this chart create it from the values below (NOT recommended for prod —
 # prefer an externally-managed Secret / external-secrets operator).
 secrets:
   create: false
   existingSecret: sherlock-secrets
+  groqApiKey: ""
   anthropicApiKey: ""
   slackWebhookUrl: ""
   gitToken: ""

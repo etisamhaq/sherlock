@@ -29,8 +29,10 @@ spec:
           env:
             - name: SHERLOCK_LLM_PROVIDER
               value: {{ .Values.llm.provider | quote }}
+            - name: SHERLOCK_GROQ_MODEL
+              value: {{ .Values.llm.groqModel | quote }}
             - name: SHERLOCK_LLM_MODEL
-              value: {{ .Values.llm.model | quote }}
+              value: {{ .Values.llm.anthropicModel | quote }}
             - name: SHERLOCK_PROMETHEUS_URL
               value: {{ .Values.config.prometheusUrl | quote }}
             - name: SHERLOCK_GIT_PROVIDER

@@ -124,9 +124,11 @@ All via environment variables — see [`.env.example`](.env.example). Highlights
 
 | Variable | Purpose |
 |---|---|
-| `ANTHROPIC_API_KEY` | Your Claude key (bring your own) |
-| `SHERLOCK_LLM_PROVIDER` | `anthropic` (default) or `fake` (offline engine) |
-| `SHERLOCK_LLM_MODEL` | Default `claude-opus-4-8` |
+| `SHERLOCK_LLM_PROVIDER` | `auto` (default), `groq`, `anthropic`, or `fake`. `auto` = Groq → Anthropic → offline engine |
+| `GROQ_API_KEY` | Groq Cloud key (primary). Get one at https://console.groq.com |
+| `SHERLOCK_GROQ_MODEL` | Default `llama-3.3-70b-versatile` |
+| `ANTHROPIC_API_KEY` | Claude key (fallback) |
+| `SHERLOCK_LLM_MODEL` | Anthropic model, default `claude-opus-4-8` |
 | `SHERLOCK_PROMETHEUS_URL` | Prometheus HTTP API base URL |
 | `SHERLOCK_GIT_PROVIDER` / `_TOKEN` / `_REPO` | "what changed" correlation |
 | `SHERLOCK_SLACK_WEBHOOK_URL` | Where to post results |

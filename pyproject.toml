@@ -14,6 +14,7 @@ keywords = ["kubernetes", "sre", "incident-response", "aiops", "observability", 
 
 dependencies = [
     "pydantic>=2.5",
+    "groq>=0.11",
     "anthropic>=0.40",
     "kubernetes>=29.0",
     "requests>=2.31",
