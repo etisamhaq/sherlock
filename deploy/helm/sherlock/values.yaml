@@ -1,0 +1,65 @@
+# Default values for Sherlock.
+
+image:
+  repository: ghcr.io/your-org/sherlock
+  tag: ""              # defaults to .Chart.AppVersion
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+# LLM configuration. Set provider to "fake" to run fully offline (no key).
+llm:
+  provider: anthropic        # anthropic | fake
+  model: claude-opus-4-8
+
+# Bring your own secrets. Create a Secret named `sherlock-secrets` with keys:
+#   ANTHROPIC_API_KEY, SHERLOCK_SLACK_WEBHOOK_URL, SHERLOCK_GIT_TOKEN
+# or let this chart create it from the values below (NOT recommended for prod —
+# prefer an externally-managed Secret / external-secrets operator).
+secrets:
+  create: false
+  existingSecret: sherlock-secrets
+  anthropicApiKey: ""
+  slackWebhookUrl: ""
+  gitToken: ""
+
+# Non-secret configuration.
+config:
+  prometheusUrl: ""          # e.g. http://prometheus-server.monitoring:80
+  gitProvider: ""            # github | gitlab | ""
+  gitRepo: ""                # owner/repo
+  tokenBudget: "20000"
+  timeBudgetSeconds: "180"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+# Read-only RBAC is sufficient for investigation. Auto-remediation (future) would
+# require a separate, explicitly-granted write Role — never enabled by default.
+rbac:
+  create: true
+
+serviceAccount:
+  create: true
+  name: ""
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: "1"
+    memory: 512Mi
+
+# Hardened pod security context (outbound-only, non-root, read-only rootfs).
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  seccompProfile:
+    type: RuntimeDefault
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: ["ALL"]

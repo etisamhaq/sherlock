@@ -1,0 +1,14 @@
+apiVersion: v2
+name: sherlock
+description: AI SRE that root-causes Kubernetes incidents and posts cited root causes to Slack.
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - sre
+  - incident-response
+  - aiops
+  - kubernetes
+home: https://github.com/your-org/sherlock
+sources:
+  - https://github.com/your-org/sherlock
