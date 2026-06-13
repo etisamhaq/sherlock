@@ -153,8 +153,6 @@ python examples/demo.py
 - v2: **gated auto-remediation** (rollback/restart/scale with approval + auto-revert), incident knowledge graph, predictive risk on deploys.
 - Enterprise: self-hosted/BYO-LLM, SSO/RBAC, audit logs, SOC2/HIPAA.
 
-See [`AI-SRE-Execution-Plan.md`](../AI-SRE-Execution-Plan.md) for the full plan.
-
 ## License
 
 Apache-2.0. Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
