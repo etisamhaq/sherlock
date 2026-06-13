@@ -20,3 +20,6 @@ htmlcov/
 .idea/
 .vscode/
 *.swp
+
+# Personal launch notes — not part of the public repo
+docs/launch/

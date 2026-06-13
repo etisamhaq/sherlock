@@ -33,7 +33,7 @@ The workload is being OOMKilled (out-of-memory). A recent deploy
 - **Evidence + confidence on every claim** — no naked assertions, no confident hallucinations. When the evidence is weak, Sherlock says *needs human*.
 - **Observability-agnostic** — works across Kubernetes, Prometheus, and your Git provider. Not locked to one vendor's data.
 - **10-minute install, Slack-native** — `helm install`, connect Slack + Prometheus, and your next alert gets investigated.
-- **Read-only & bring-your-own-LLM** — runs in your cluster with read-only RBAC and your own Claude key. Your data isn't used to train anything.
+- **Read-only & bring-your-own-LLM** — runs in your cluster with read-only RBAC and your own LLM key (Groq or Claude). Your data isn't used to train anything.
 - **Runs offline** — a deterministic engine gives a useful answer with no API key at all (great for trials and CI).
 
 ## What it investigates (v0)
@@ -79,7 +79,7 @@ The three investigators run **in parallel**. Synthesis is the only LLM step and 
 ### Try it offline in 30 seconds (no cluster, no key)
 
 ```bash
-git clone https://github.com/your-org/sherlock && cd sherlock
+git clone https://github.com/etisamhaq/sherlock && cd sherlock
 python -m venv .venv && . .venv/bin/activate
 pip install -e ".[dev]"
 python examples/demo.py        # runs a full investigation on a synthetic OOM incident
@@ -88,7 +88,7 @@ python examples/demo.py        # runs a full investigation on a synthetic OOM in
 ### Run a one-off investigation against your cluster
 
 ```bash
-export ANTHROPIC_API_KEY=sk-ant-...          # or SHERLOCK_LLM_PROVIDER=fake to stay offline
+export GROQ_API_KEY=gsk_...                   # or ANTHROPIC_API_KEY=sk-ant-... ; or SHERLOCK_LLM_PROVIDER=fake to stay offline
 export SHERLOCK_PROMETHEUS_URL=http://prometheus.monitoring:9090
 export SHERLOCK_GIT_PROVIDER=github SHERLOCK_GIT_TOKEN=ghp_... SHERLOCK_GIT_REPO=acme/api
 sherlock investigate -n prod -w api --title "api OOMKilled"
@@ -98,7 +98,7 @@ sherlock investigate -n prod -w api --title "api OOMKilled"
 
 ```bash
 kubectl create secret generic sherlock-secrets \
-  --from-literal=ANTHROPIC_API_KEY=sk-ant-... \
+  --from-literal=GROQ_API_KEY=gsk_... \
   --from-literal=SHERLOCK_SLACK_WEBHOOK_URL=https://hooks.slack.com/services/...
 
 helm install sherlock deploy/helm/sherlock \
@@ -145,7 +145,7 @@ All via environment variables — see [`.env.example`](.env.example). Highlights
 
 ```bash
 pip install -e ".[dev]"
-pytest -q                 # 47 tests, fully offline
+pytest -q                 # 57 tests, fully offline
 python examples/demo.py
 ```
 

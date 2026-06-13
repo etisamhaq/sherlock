@@ -1,6 +1,11 @@
 # Sherlock — container image for the webhook server.
 FROM python:3.11-slim AS base
 
+# Links the GHCR package to the source repo (shows on the repo sidebar).
+LABEL org.opencontainers.image.source="https://github.com/etisamhaq/sherlock"
+LABEL org.opencontainers.image.description="AI SRE that root-causes Kubernetes incidents"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1
